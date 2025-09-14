@@ -2,7 +2,7 @@
 
 // cna (create next app) template for basic structure of our next app
 
-// create model directory(/model) within source directory (/src) for storing what data is being stored (so 1st database structure thing)
+// 1st thing 1st, modelling,; create model directory(/model) within source directory (/src) for storing what data is being stored (so 1st database structure thing is a good start whenever a application development starts)
 
 // we are just storing users and messages sent to them... (so database would be not of higher complexity), 
 
@@ -10,4 +10,28 @@
 
 // We will now (install mongoose), which is an ORM, (which makes mongoDB queries writing easier) working as a intermediate
 
-.. // 
+.. // we will import {Document} from "mongoose" in (User.ts) for type safety purposes..
+
+// pattern in TypeScript when working with Mongoose (a MongoDB ODM)
+____________________________________________________________________
+---------------------- interface -------------------------
+data type for type safety, (kind of blueprint for shape of object..)
+
+using TypeScript interfaces to define the shape of your data.
+
+Interfaces for Type Safety in TypeScript with Mongoose
+
+TypeScript compiler uses interfaces to verify that objects conform to expected structure
+// basic of ts coding pattern is used (eg. interface has names, they extends Document)..
+
+eg. creating custom interface 
+export interface Message extends Document {
+    content : String;
+    createdAt : Date;
+}
+___________________________________________________________________
+
+// using the custom interfaces for type safety, first writing the data type(eg. Schema), then custom interface in our case, in diamond brackets
+const MessageSchema: Schema<Message> = new Schema({
+
+})
