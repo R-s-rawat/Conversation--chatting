@@ -1,0 +1,13 @@
+// communication application
+
+// cna (create next app) template for basic structure of our next app
+
+// create model directory(/model) within source directory (/src) for storing what data is being stored (so 1st database structure thing)
+
+// we are just storing users and messages sent to them... (so database would be not of higher complexity), 
+
+// create a file named (User.ts) within models directory (/models), (tip: can also use naming like user.model.ts)
+
+// We will now (install mongoose), which is an ORM, (which makes mongoDB queries writing easier) working as a intermediate
+
+.. // 
