@@ -4,17 +4,21 @@
 
 // 1st thing 1st, modelling,; create model directory(/model) within source directory (/src) for storing what data is being stored (so 1st database structure thing is a good start whenever a application development starts)
 
+// so data modelling for database (backend),, WORKFLOW (✅interface → ✅schema → ✅model)
+
 // we are just storing users and messages sent to them... (so database would be not of higher complexity), 
 
 // create a file named (User.ts) within models directory (/models), (tip: can also use naming like user.model.ts)
 
-// We will now (install mongoose), which is an ORM, (which makes mongoDB queries writing easier) working as a intermediate
+// We will now (install mongoose), which is an ORM/ODM, (which makes mongoDB queries writing easier) working as a intermediate, Mongoose is an ODM (Object Data Modeling), not a strict ORM (which is SQL).
 
-.. // we will import {Document} from "mongoose" in (User.ts) for type safety purposes..
+.. // we will import {Document} from "mongoose" in (User.ts) for type safety purposes.. (Import Document for type safety)
 
 // pattern in TypeScript when working with Mongoose (a MongoDB ODM)
-____________________________________________________________________
----------------------- interface -------------------------
+__________________________________________________________________
+111111111111111111111111111111111111111111111111111111111111111111
+__________________________________________________________________
+---------------------- ✅interface -------------------------
 data type for type safety, (kind of blueprint for shape of object..)
 
 using TypeScript interfaces to define the shape of your data.
@@ -24,14 +28,111 @@ Interfaces for Type Safety in TypeScript with Mongoose
 TypeScript compiler uses interfaces to verify that objects conform to expected structure
 // basic of ts coding pattern is used (eg. interface has names, they extends Document)..
 
-eg. creating custom interface 
-export interface Message extends Document {
-    content : String;
+eg. creating custom interface (while creating, we will use TS primitives, i.e string (all low caps)),, String (is JS object wrapper)
+export interface IMessage extends Document {
+    content : string;
     createdAt : Date;
 }
-___________________________________________________________________
+__________________________________________________________________
+11111111111111111111111111111111111111111111111111111111111111111
+__________________________________________________________________
+📌 if any wrong type is defined, then caught type error..
 
 // using the custom interfaces for type safety, first writing the data type(eg. Schema), then custom interface in our case, in diamond brackets
-const MessageSchema: Schema<Message> = new Schema({
-
+const MessageSchema: Schema<IMessage> = new Schema({
+  content:{
+        type: String,
+        required: true
+    },
+    createdAt:{
+        type: Date,
+        required: true,
+        default: Date.now
+    }
 })
+
+// After message, we will do same for the user -> typescript INTERFACE and mongoose schema
+
+🥊 So, typescript enables many bugs to be caught at build time, by the type checker / compiler (enforce the correctness of data types)
+
+// keep, create interface (ts schemas) then mongoose schemas.. now after IMessage->IUser i.e (IUser interface + UserSchema)
+
+__________________________________________________________________
+2222222222222222222222222222222222222222222222222222222222222222
+__________________________________________________________________
+// ✅Key points on TS, 
+
+interfaces better than types (as they can be extended)
+
+interfaces and type literals can have members separated by a comma or a semicolon. It's a good idea to have a consistent style. They're both valid, but many prefers semicolon.(as long lines can be there with easy tracking)
+
+TypeScript types and interfaces are written in PascalCase (uppercase first letter).
+
+When defining schema keys inside a Mongoose schema, we use camelCase (lowercase first letter).
+
+TypeScript Interfaces / Classes = IUser, IMessage
+__________________________________________________________________
+2222222222222222222222222222222222222222222222222222222222222222222
+__________________________________________________________________
+
+// using match operator for (email syntax validation), has to use the Regex Expression
+
+___________________________________________________________________
+333333333333333333333333333333333333333333333333333333333333333333333
+__________________________________________________________________
+// ✅Next.JS
+Once a Express backend runs, it keeps running and knows its initialized,
+
+But when Next.JS runs, it runs as edges and does'nt knows when its first initialized/started..
+__________________________________________________________________
+333333333333333333333333333333333333333333333333333333333333333333333
+____________________________________________________________________
+
+// we will write two conditions for writing the models after the schema creation, i.e 1st get existing and 2nd if not exist then add.(along with typescript)
+
+__________________________________________________________________
+44444444444444444444444444444444444444444444444444444444444444444444
+__________________________________________________________________
+// Naming conventions
+
+Interfaces in PascalCase → ✅
+
+Mongoose schema keys in camelCase → ✅
+
+Models in singular (User) → ✅
+
+Collections auto-pluralized lowercase (users) → ✅
+
+// NOTE📌: When defining models, Mongoose by default auto-pluralizes and lowercases the collection name (e.g., "User" → "users"), whereas MongoDB itself uses exactly the name you specify, unless you explicitly specify a collection name
+const UserModel = mongoose.model("User", UserSchema, "User") //🙌🏽stays "User"
+
+👉 Without the <IUser> type parameter, UserModel won’t have strong typing for .find(), .create(), etc. It’ll just behave as a generic Mongoose model.
+const UserModel: Model<IUser> = mongoose.model<IUser>("User", UserSchema, "User")
+
+// takethrough⚡: hot-reload safety and IUser interface application (eg. as mongoose.Model<IUser> you’re telling TypeScript:
+“Trust me, this existing model is of type mongoose.Model<IUser>)
+__________________________________________________________________
+444444444444444444444444444444444444444444444444444444444444444444
+__________________________________________________________________
+
+__________________________________________________________________
+55555555555555555555555555555555555555555555555555555555555555555
+__________________________________________________________________
+// Schemas,, (create because)
+
+mongoose not ensures that developers expecting some format of inputs (eg. username -Not all digits, etc.), which can be done by typecheck
+
+not for structure but for our validation
+__________________________________________________________________
+555555555555555555555555555555555555555555555555555555555555555
+__________________________________________________________________
+
+// create schemas, (for validation purposes only)
+signUpSchema.ts 
+verifySchema.ts
+signInSchema.ts
+acceptMessageSchema.ts  
+messageSchema.ts
+
+// INSTALL ZOD🔰🚀💚✨⭐
+
