@@ -241,4 +241,55 @@ messageSchema.ts
 
 define validation schemas as per the flow, like signup, verifyOtp, signIn(check identifier(developers terminology for emails or anything unique)), acceptMessage, message etc(if any schema extra for more depth)...
 
-//
+// as nextJS is edge time framework (db connects on requests), so we will first check if db connection exists due to just previous invocation to not cause any choke while invoking requests, so prevent db throttling by checking if -> connection.isConnected then -> return;
+
+// create a dbConnect.ts within new directory "lib" within existing "src"
+
+// the void we are using in our db connection contextually means by the ts(typeScript) that i technically not know what kind of data return
+
+// now have logic for db connection, and add .env to the root of our project for our environment variables (we are not going to git commit (env's) for backups and versioning)
+
+// we need to know all flow, like mongoose one and the nextAuth(by nextJS), as signUps requires a lot of info from users
+
+// we will use Resend Email package, the latest development and not go for most used previous ones like nodemailer
+
+// we will implement a algorithm for our flow of application that is designed keeping in mind few practical scenarios:
+
+code should efficiently handle both scenarios of (1. registering a new user) & (2. updating an existing but unverified) user account with new passoword and verification code
+
+IF existingUserByEmail EXISTS THEN
+   IF existingUserByEmail.isVerified THEN
+      success: false
+   ELSE 
+      // save the updated user
+   END IF
+ELSE 
+   // Create a new user with provided details
+   // Save the new user
+END IF
+
+Example: ✍💛 // for eg. if using database library like Prisma or TypeORM
+
+const existingUser = await User.findOne({ where: { email } }); // Find user by email
+
+if (existingUser) ✨
+    { // User exists
+         if (existingUser.isVerified) {
+           return { success: false, message: 'User already verified' }; // User already verified
+         } 
+         else {
+           // Update user details (assuming otherUserDetails contains the updated data)
+           await User.update({ where: { email }, data: { ...otherUserDetails, isVerified: true } }); // Update user fields and set isVerified to true
+           return { success: true, message: 'User details updated' };
+         }
+    } 
+else ✨
+    { // User does not exist
+      // Create new user (assuming otherUserDetails contains necessary data)
+      const newUser = await User.create({ email, isVerified: false, ...otherUserDetails });
+      return { success: true, message: 'User created', userId: newUser.id }; // Return the new user's ID if needed
+    }
+  
+// Now we will have our api key for email provider (Resend email)
+
+
