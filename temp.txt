@@ -259,5 +259,6 @@ signInSchema.ts
 acceptMessageSchema.ts  
 messageSchema.ts
 
-// INSTALL ZOD🔰🚀💚✨⭐
+// INSTALL ZOD🔰🚀💚✨⭐ - object schema and validation (chaining)
+
 
