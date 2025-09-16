@@ -57,7 +57,7 @@ await dbConnect();
       expiryDate.setHours(expiryDate.getHours() + 1);
 
       const newUser = new UserModel({
-        userName: userName,
+        username: userName,
         email: email,
         password: hashedPassword,
         verifyCode: otp,

@@ -393,9 +393,13 @@ NOTE: for better reproducibility, using exact version for devDependencies helps 
 
 // do await and trigger db connection (post request for our signup route)
 
+// if we just pass Resend api key not the mongodb uri, then errors is confirm, eg. Connection was forcibly closed by a peer.
 
-
-
+// so, after mongodb uri, and resend too.. the resend otp is having a issue, causing our api route to throw error ie.
+{
+    "success": false,
+    "message": "Failed to send verification email"
+}
 
 
 
