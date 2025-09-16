@@ -391,7 +391,7 @@ NOTE: for better reproducibility, using exact version for devDependencies helps 
 
 // we have to write route functions as per request method, as per flow i.e app->api->sign-up->..
 
-
+// do await and trigger db connection (post request for our signup route)
 
 
 
